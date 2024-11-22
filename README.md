@@ -1,27 +1,95 @@
-# Smartpark API
+# Smartpark 
 
-## REQUIREMENTS
+"SmartPark" is an intelligent parking management system for
+urban areas, aiming to optimize the use of parking spaces and facilitate easy
+navigation for drivers.
+
+## Table of Contents
+- [Prerequisites](#prerequisites)
+- [Getting Started](#getting-started)
+- [Build and Run](#build-and-run)
+- [Testing](#testing)
+- [Reports](#reports)
+- [Note](#note)
+
+## Prerequisites
   - Java 17
-  - IDE - IntelliJ IDEA (recommended)
+  - Gradle 8.11
+  - Spring Boot 3.3.5
+
+## Getting Started
+
+  ### Clone the repository:
+  ```bash
+  git clone https://github.com/Dranoj29/smartpark.git
+  cd smartpark
+  ```
+
+  ### Build the project:
+  ```bash
+  ./gradlew build
+  ```
+
+  ## Build and Run
+
+  To run the application locally:
+  ```bash
+  ./gradlew bootRun
+  ```
+
+  TO vissualize API using swagger visit visit http://localhost:8080/swagger-ui.html 
+  The service will start on the default port `8080`. To change the port, update the `server.port` property in the `application.properties` file.
+
+  ## Testing
+
+  To run tests, use the following command:
+  ```bash
+  ./gradlew test
+  ```
+
+  ## Reports
+
+  To vissualize and verify test case, use the following command:
+  ```bash
+  ./gradlew test jacocoTestReport
+  ```
+  The report will be generated as an HTML template 
+  ```bash
+  smartpark/ 
+  └── build/ 
+    └── reports/ 
+      └── tests/       
+        └── test/
+          └── index.html
+  ```
+  open index.html on any browser
+
+  ## Note
+  - This API uses generated ID as an identifier for each data item to process transactions.
+    e.g.
+  ```bash
+   # Before registering the vehicle please select vehicleType on GET /v1/vehicles/types
+   # Selected vehicleType
+    {
+      "id": 1,       
+      "name": "Car"
+    }
+    # and in POST /v1/vehicles/regiter pass the ID of selected vehicleType
+    {
+      "licensePlate": "ABC100",
+      "typeId": 1,         // vehicleType ID
+      "ownerName": "Jonnard Baysa"
+    }
+  ```
 
 
-# STEPS
 
-  - ## BUILD
-  - generated .jar file will be located in /smartpark/build/libs
-    - ### Using command
-       - Open Terminal, ensure you are inside the project
-       - Enter command: ./gradlew bootJar
-    - ### Using IDE
-        - Open Gradle task
-        - Click bootJar under smartpark->Tasks->build group location
 
-   - ## RUN 
-     - ### Using command
-       - Open Terminal, ensure you are inside the project
-       - Enter command: ./gradlew bootRun
-     - ### Using IDE
-        - Open Gradle task
-        - Click bootRun under smartpark->Tasks->appliction group location
-     - And visit http://localhost:8080/swagger-ui.html on your browser
+
+
+
+
+
+
+
           
