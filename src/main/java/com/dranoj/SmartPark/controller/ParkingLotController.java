@@ -1,5 +1,6 @@
 package com.dranoj.SmartPark.controller;
 
+import com.dranoj.SmartPark.controller.interfaces.IParkingLotController;
 import com.dranoj.SmartPark.model.request.CheckInOutRequestDTO;
 import com.dranoj.SmartPark.model.request.ParkingLotRequestDTO;
 import com.dranoj.SmartPark.model.response.ParkingLotDTO;
@@ -19,7 +20,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("v1/parking-lots")
-public class ParkingLotController {
+public class ParkingLotController implements IParkingLotController {
 
     @Autowired
     private IParkingLotService parkingLotService;
@@ -47,6 +48,7 @@ public class ParkingLotController {
     }
 
     @PostMapping("/register")
+    @Override
     public ResponseEntity<Map<String, Object>> register(@Valid @RequestBody ParkingLotRequestDTO parkingLotRequestDTO){
         try {
             ParkingLotDTO parkingLotDTO = this.parkingLotService.save(parkingLotRequestDTO);
@@ -60,6 +62,7 @@ public class ParkingLotController {
     }
 
     @PostMapping("/check-in")
+    @Override
     public ResponseEntity<Map<String, Object>> checkInVehicle(@Valid @RequestBody CheckInOutRequestDTO checkInOutRequestDTO){
         Map<String, Object> response = new HashMap<>();
         try {
@@ -75,6 +78,7 @@ public class ParkingLotController {
     }
 
     @PostMapping("/check-out")
+    @Override
     public ResponseEntity<Map<String, Object>> checkOutVehicle(@Valid @RequestBody CheckInOutRequestDTO checkInOutRequestDTO){
         Map<String, Object> response = new HashMap<>();
         try {
@@ -88,7 +92,5 @@ public class ParkingLotController {
             return ResponseUtil.buildErrorResponse(HttpStatus.CONFLICT, e.getMessage());
         }
     }
-
-
 
 }

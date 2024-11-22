@@ -1,5 +1,6 @@
 package com.dranoj.SmartPark.controller;
 
+import com.dranoj.SmartPark.controller.interfaces.IVehicleController;
 import com.dranoj.SmartPark.entity.VehicleType;
 import com.dranoj.SmartPark.model.request.VehicleRequestDTO;
 import com.dranoj.SmartPark.model.response.VehicleDTO;
@@ -19,7 +20,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("v1/vehicles")
-public class VehicleController {
+public class VehicleController implements IVehicleController {
 
     @Autowired
     private IVehicleService vehicleService;
@@ -38,6 +39,7 @@ public class VehicleController {
     }
 
     @PostMapping("/register")
+    @Override
     public ResponseEntity<Map<String, Object>> save(@Valid @RequestBody VehicleRequestDTO vehicleRequestDTO){
         try {
             VehicleDTO vehicleDTO = this.vehicleService.save(vehicleRequestDTO);
