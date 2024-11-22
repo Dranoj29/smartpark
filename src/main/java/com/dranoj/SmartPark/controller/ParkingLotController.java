@@ -53,9 +53,9 @@ public class ParkingLotController implements IParkingLotController {
         try {
             ParkingLotDTO parkingLotDTO = this.parkingLotService.save(parkingLotRequestDTO);
             Map<String, Object> response = new HashMap<>();
-            response.put("message", "Parking Lot successfully save.");
+            response.put("message", "Parking Lot successfully registered.");
             response.put("parkingLot", parkingLotDTO);
-            return ResponseEntity.ok(response);
+            return ResponseEntity.status(HttpStatus.CREATED).body(response);
         }catch (EntityExistsException e){
             return ResponseUtil.buildErrorResponse(HttpStatus.CONFLICT, e.getMessage());
         }

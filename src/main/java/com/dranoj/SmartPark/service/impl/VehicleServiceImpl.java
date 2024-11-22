@@ -27,7 +27,7 @@ public class VehicleServiceImpl implements IVehicleService {
     @Override
     public VehicleDTO findById(long id){
         Vehicle vehicle = vehicleRepo.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Parking Lot not found."));
+                .orElseThrow(() -> new EntityNotFoundException("Vehicle not found."));
 
         return DataUtil.buidVehicleDTO(vehicle);
     }
@@ -36,10 +36,10 @@ public class VehicleServiceImpl implements IVehicleService {
     public VehicleDTO save(VehicleRequestDTO vehicleRequestDTO){
         Vehicle vehicleResult = vehicleRepo.findByLicensePlate(vehicleRequestDTO.getLicensePlate());
         if(vehicleResult != null)
-            throw new EntityExistsException("License Plate already in used");
+            throw new EntityExistsException("License Plate already in used.");
 
         VehicleType vehicleType = vehicleTypeRepo.findById(vehicleRequestDTO.getTypeId())
-                .orElseThrow(() -> new EntityNotFoundException("Vehicle Type doesn't exist"));
+                .orElseThrow(() -> new EntityNotFoundException("Vehicle Type doesn't exist."));
 
         Vehicle vehicle = new Vehicle();
         vehicle.setLicensePlate(vehicleRequestDTO.getLicensePlate());

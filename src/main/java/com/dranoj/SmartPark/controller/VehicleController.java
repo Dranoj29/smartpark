@@ -44,9 +44,9 @@ public class VehicleController implements IVehicleController {
         try {
             VehicleDTO vehicleDTO = this.vehicleService.save(vehicleRequestDTO);
             Map<String, Object> response = new HashMap<>();
-            response.put("message", "Vehicle successfully save.");
+            response.put("message", "Vehicle successfully registered.");
             response.put("vehicle", vehicleDTO);
-            return ResponseEntity.status(HttpStatus.OK).body(response);
+            return ResponseEntity.status(HttpStatus.CREATED).body(response);
         }catch (EntityExistsException e){
             return ResponseUtil.buildErrorResponse(HttpStatus.CONFLICT, e.getMessage());
         }catch (EntityNotFoundException e){
