@@ -37,8 +37,9 @@ navigation for drivers.
   ./gradlew bootRun
   ```
 
-  TO vissualize API using swagger visit visit http://localhost:8080/swagger-ui.html 
-  The service will start on the default port `8080`. To change the port, update the `server.port` property in the `application.properties` file.
+  - TO vissualize API using swagger visit visit http://localhost:8080/swagger-ui.html 
+  - The service will start on the default port `8080`.
+  - To change the port, update the `server.port` property in the `application.properties` file.
 
   ## Testing
 
@@ -66,21 +67,37 @@ navigation for drivers.
 
   ## Note
   - This API uses generated ID as an identifier for each data item to process transactions.
-    e.g.
+  ## Example
+  - Before registering a vehicle, retrieve the available vehicle types:
   ```bash
-   # Before registering the vehicle please select vehicleType on GET /v1/vehicles/types
-   # Selected vehicleType
-    {
-      "id": 1,       
-      "name": "Car"
-    }
-    # and in POST /v1/vehicles/regiter pass the ID of selected vehicleType
-    {
-      "licensePlate": "ABC100",
-      "typeId": 1,         // vehicleType ID
-      "ownerName": "Jonnard Baysa"
-    }
+   GET /v1/vehicles/types
   ```
+  - Exsample respone:
+   ```bash
+    [
+    {
+      "id": 1,
+      "name": "Car"
+    },
+    {
+      "id": 2,
+      "name": "Motorcycle"
+    }
+  ]
+   ```
+  - To register a vehicle, include the ID of the selected vehicle type in the payload:
+  ```bash
+    POST /v1/vehicles/register
+   ```
+   - Request Payload
+   ```bash
+    POST /v1/vehicles/register
+      "licensePlate": "ABC100",
+      "typeId": 1,
+      "ownerName": "Jonnard Baysa"
+     {
+   }
+   ```
 
 
 
