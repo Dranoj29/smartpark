@@ -8,7 +8,7 @@
 # STEPS
 
   - ## BUILD
-  - generated .jar file will be located in /smartpar/build/libs
+  - generated .jar file will be located in /smartpark/build/libs
     - ### Using command
        - Open Terminal, ensure you are inside the project
        - Enter command: ./gradlew bootJar
