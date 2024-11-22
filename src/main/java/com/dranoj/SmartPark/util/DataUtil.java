@@ -12,12 +12,7 @@ public class DataUtil {
     public static ParkingLotDTO buildParkingLotDTO(ParkingLot parkingLot){
 
         List<VehicleDTO> vehicleDTOList = parkingLot.getVehicles().stream()
-                .map(vehicle -> new VehicleDTO(
-                        vehicle.getId(),
-                        vehicle.getLicensePlate(),
-                        vehicle.getType(),
-                        vehicle.getOwnerName()
-                ))
+                .map(DataUtil::buidVehicleDTO)
                 .toList();
 
         return new ParkingLotDTO(

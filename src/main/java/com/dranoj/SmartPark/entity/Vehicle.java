@@ -22,10 +22,10 @@ public class Vehicle {
     private String licensePlate;
 
     @Column(nullable = false)
-    private String type;
-
-    @Column(nullable = false)
     private String  ownerName;
+
+    @OneToOne
+    private VehicleType type;
 
     @ManyToOne
     private ParkingLot parkingLot;

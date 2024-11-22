@@ -24,7 +24,7 @@ public class ParkingLotController {
     @Autowired
     private IParkingLotService parkingLotService;
 
-    @GetMapping("/")
+    @GetMapping("")
     public ResponseEntity<Map<String, Object>> findAll(){
         Map<String, Object> response = new HashMap<>();
         List<ParkingLotDTO> parkingLotsDTO = this.parkingLotService.findAll();

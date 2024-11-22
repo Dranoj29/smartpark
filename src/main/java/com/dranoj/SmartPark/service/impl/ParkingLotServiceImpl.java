@@ -59,12 +59,12 @@ public class ParkingLotServiceImpl implements IParkingLotService {
     @Override
     public ParkingLotDTO checkInVehicle(CheckInOutRequestDTO checkInOutRequestDTO){
         ParkingLot parkingLot = parkingLotRepo.findById(checkInOutRequestDTO.getParkingLotId())
-                .orElseThrow(() -> new EntityNotFoundException("No Parking Lot found using parking lot id."));
+                .orElseThrow(() -> new EntityNotFoundException("No Parking Lot found."));
         Vehicle vehicle = vehicleRepo.findById(checkInOutRequestDTO.getVehicleId())
-                .orElseThrow(() -> new EntityNotFoundException("No Vehicle found using vehicle id."));
+                .orElseThrow(() -> new EntityNotFoundException("No Vehicle found."));
 
         if(vehicle.getParkingLot() != null)
-            throw new IllegalStateException("The Vehicle has already been checked into a parking lot. checkout first before checking in.");
+            throw new IllegalStateException("Vehicle is not allowed for multiple check in");
 
         if(parkingLot.isFull()){
             throw new IllegalStateException("Parking Lot is full");

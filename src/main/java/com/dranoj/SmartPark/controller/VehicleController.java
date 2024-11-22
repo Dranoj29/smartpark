@@ -1,5 +1,6 @@
 package com.dranoj.SmartPark.controller;
 
+import com.dranoj.SmartPark.entity.VehicleType;
 import com.dranoj.SmartPark.model.request.VehicleRequestDTO;
 import com.dranoj.SmartPark.model.response.VehicleDTO;
 import com.dranoj.SmartPark.service.IVehicleService;
@@ -13,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -44,10 +46,19 @@ public class VehicleController {
             response.put("vehicle", vehicleDTO);
             return ResponseEntity.status(HttpStatus.OK).body(response);
         }catch (EntityExistsException e){
+            return ResponseUtil.buildErrorResponse(HttpStatus.CONFLICT, e.getMessage());
+        }catch (EntityNotFoundException e){
             return ResponseUtil.buildErrorResponse(HttpStatus.NOT_FOUND, e.getMessage());
         }
     }
 
-
+    @GetMapping("/types")
+    public ResponseEntity<Map<String, Object>> findAllVehicleType(){
+            List<VehicleType> vehicleTypes = this.vehicleService.findAllVehicleType();
+            Map<String, Object> response = new HashMap<>();
+            response.put("message", "Success");
+            response.put("types", vehicleTypes);
+            return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
 
 }
