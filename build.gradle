@@ -2,6 +2,7 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.3.5'
 	id 'io.spring.dependency-management' version '1.1.6'
+	id 'jacoco'
 }
 
 group = 'com.dranoj'
@@ -25,6 +26,7 @@ repositories {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0'
 	compileOnly 'org.projectlombok:lombok'
@@ -36,4 +38,33 @@ dependencies {
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+test {
+	useJUnitPlatform()
+	finalizedBy jacocoTestReport // Ensure coverage report runs after tests
+}
+
+jacoco {
+	toolVersion = "0.8.10" // Use the latest version to avoid compatibility issues
+	reportsDirectory = layout.buildDirectory.dir("customJacocoReports") // Modern way to set reports directory
+}
+
+jacocoTestReport {
+	dependsOn test
+	reports {
+		xml.required.set(true) // Enables XML report for integration with tools like SonarQube
+		csv.required.set(false) // Disable CSV if not needed
+		html.required.set(true) // Generates the HTML report
+	}
+
+	// Correct handling of class directories
+	classDirectories.setFrom(
+			files(classDirectories.files.collect { dir ->
+				fileTree(dir: dir, exclude: [
+						'com/dranoj/SmartPark/model/**',
+						'com/dranoj/SmartPark/util/DataUtil.*',
+				])
+			})
+	)
 }
