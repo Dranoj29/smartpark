@@ -92,10 +92,10 @@ navigation for drivers.
    - Request Payload
    ```bash
     POST /v1/vehicles/register
+    {
       "licensePlate": "ABC100",
       "typeId": 1,
       "ownerName": "Jonnard Baysa"
-     {
    }
    ```
 
