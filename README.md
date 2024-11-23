@@ -50,7 +50,7 @@ navigation for drivers.
 
   ## Reports
 
-  To vissualize and verify test case, use the following command:
+  To vissualize and verify test cases, use the following command:
   ```bash
   ./gradlew test jacocoTestReport
   ```
@@ -98,6 +98,7 @@ navigation for drivers.
       "ownerName": "Jonnard Baysa"
    }
    ```
+   Same goes for other endpoints
 
 
 
