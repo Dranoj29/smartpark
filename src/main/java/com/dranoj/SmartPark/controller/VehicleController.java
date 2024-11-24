@@ -5,7 +5,6 @@ import com.dranoj.SmartPark.entity.VehicleType;
 import com.dranoj.SmartPark.model.request.VehicleRequestDTO;
 import com.dranoj.SmartPark.model.response.VehicleDTO;
 import com.dranoj.SmartPark.service.IVehicleService;
-import com.dranoj.SmartPark.util.ResponseUtil;
 import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
@@ -14,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,7 +34,7 @@ public class VehicleController implements IVehicleController {
             response.put("vehicle", vehicleDTO);
             return ResponseEntity.status(HttpStatus.OK).body(response);
         }catch (EntityNotFoundException e){
-            return ResponseUtil.buildErrorResponse(HttpStatus.NOT_FOUND, e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Collections.singletonMap("message", e.getMessage()));
         }
     }
 
@@ -48,9 +48,9 @@ public class VehicleController implements IVehicleController {
             response.put("vehicle", vehicleDTO);
             return ResponseEntity.status(HttpStatus.CREATED).body(response);
         }catch (EntityExistsException e){
-            return ResponseUtil.buildErrorResponse(HttpStatus.CONFLICT, e.getMessage());
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(Collections.singletonMap("message", e.getMessage()));
         }catch (EntityNotFoundException e){
-            return ResponseUtil.buildErrorResponse(HttpStatus.NOT_FOUND, e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Collections.singletonMap("message", e.getMessage()));
         }
     }
 
